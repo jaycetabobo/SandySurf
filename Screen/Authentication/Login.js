@@ -22,7 +22,7 @@ export default function Login() {
             source={require("../../assets/logo.png")}
             style={{ width: 80, height: 80, marginTop: 70 }}
           />
-          <Text style={{ fontSize: 45, marginTop: 55 }}>Login</Text>
+          <Text style={{ fontSize: 45, marginTop: 55, fontFamily: 'boorsok' }}>Login</Text>
           <View style={{ width: "80%", marginTop: 50 }}>
             <Text>Username:</Text>
             <View
