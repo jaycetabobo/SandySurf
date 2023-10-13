@@ -6,11 +6,14 @@ import {
   Text,
   Image,
   TextInput,
+  Button,
 } from "react-native";
+import ProfileRoutes from "../../routes/profileRoutes";
+
 
 const { width, height } = Dimensions.get("window");
 
-export default function Login() {
+export default function Login({ navigation }) {
   return (
     <View>
       <ImageBackground
@@ -41,8 +44,7 @@ export default function Login() {
                 source={require("../../assets/2.png")}
                 style={{ width: 25, height: 25 }}
               />
-              <TextInput style={{ marginLeft: 10 }}>
-                Input your username
+              <TextInput style={{ marginLeft: 10 }} placeholder = 'Input your username'>
               </TextInput>
             </View>
           </View>
@@ -64,8 +66,8 @@ export default function Login() {
                 source={require("../../assets/3.png")}
                 style={{ width: 25, height: 25 }}
               />
-              <TextInput style={{ marginLeft: 10 }} secureTextEntry={true}>
-                Input your password
+              <TextInput style={{ marginLeft: 10 }} secureTextEntry={true} placeholder = 'Input your username'>
+                
               </TextInput>
             </View>
           </View>
@@ -81,7 +83,7 @@ export default function Login() {
               justifyContent: "center",
             }}
           >
-            <Text style={{ color: "white", fontSize: 25 }}>Login</Text>
+            <Button title = 'login' onPress={ () => navigation.navigate('Profile')}/>
           </View>
           <View
             style={{
@@ -112,7 +114,7 @@ export default function Login() {
           </View>
           <Text style={{ marginTop: 30, fontSize: 15 }}>
             Don't have an account?
-            <Text style={{ color: "#38B6FF" }}> Click Here.</Text>
+            <Text style={{ color: "#38B6FF" }} onPress={ () => navigation.navigate('Signup')}> Click Here.</Text>
           </Text>
         </View>
       </ImageBackground>

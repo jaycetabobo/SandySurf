@@ -13,7 +13,10 @@
 import * as React from 'react';
 import { View } from 'react-native';
 import { useFonts } from 'expo-font';
-import Login from "./Screen/Authentication/Login";
+import Profile from './Screen/Content/profile';
+import ProfileRoutes from './routes/profileRoutes'
+import { NavigationContainer } from '@react-navigation/native';
+import Login from './Screen/Authentication/Login';
 
 export default function App() {
   const [loaded] = useFonts({
@@ -26,8 +29,8 @@ export default function App() {
   }
 
   return (
-    <View>
-      <Login />
-    </View>
+    <NavigationContainer>
+        <ProfileRoutes />
+    </NavigationContainer>
   );
 }
