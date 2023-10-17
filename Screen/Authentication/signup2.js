@@ -11,12 +11,13 @@
     } from "react-native";
     import { useState } from "react";
     import { Entypo } from '@expo/vector-icons';
+    
 
     
     
     const { width, height } = Dimensions.get("window");
     
-    export default function Signup2({ navigation }) {
+    export default function Signup2({ navigation, route }) {
       const [secureTextEntry, setSecureTextEntry] = useState(true);
       const [retypeSecureTextEntry, setRetypeSecureTextEntry] = useState(true);
       const [icon, setIcon] = useState('eye-with-line');
@@ -29,10 +30,23 @@
       
       const [signedUp, setSignedUp] = useState(false);
 
-      const handleSignUp = () => {
+      const userData = route.params.userData;
+
+      const [userData2, setUserData2] = useState([{
+        username: "",
+        email: "",
+        password: "",
+        confirmpassword: "",
+      }, 
+    ]);
+    
+      const handleSubmit = () => {
+        // Set the user data state variable
+        setUserData2(userData2);
+
         setSignedUp(true);
         Alert.alert('Account created successfully!', null, [
-          { text: 'OK', onPress: () => navigation.navigate('Login') },
+          { text: 'OK', onPress: () => navigation.navigate("Login", { userData,userData2 })},
         ], {
           titleStyle: {
             color: 'yellow',
@@ -40,8 +54,10 @@
             
           },
         }); 
-      };
     
+        // Navigate to the `profile.js` screen
+        // navigation.navigate("Profile", { userData,userData2 });
+      };
       
       return (
         <View>
@@ -69,7 +85,10 @@
                   }}
                 >
                   
-                  <TextInput style={{ marginLeft: 10, width: 300 }} placeholder = 'Username'>
+                  <TextInput style={{ marginLeft: 10, width: 300 }} placeholder = 'Username'
+                  value={userData2.username}
+                  onChangeText={(text) => setUserData2({ ...userData2, username: text })}
+                  >
                   </TextInput>
                 </View>
                 <Text>Email:</Text>
@@ -84,7 +103,10 @@
                     paddingTop: 5,
                   }}
                 >
-                  <TextInput style={{ marginLeft: 10, width: 300}} placeholder = 'Email'>
+                  <TextInput style={{ marginLeft: 10, width: 300}} placeholder = 'Email'
+                    value={userData2.email}
+                    onChangeText={(text) => setUserData2({ ...userData2, email: text })}
+                  >
                   </TextInput>
                 </View>
                 
@@ -107,7 +129,10 @@
                     width: '100%'
                   }}
                 >
-                  <TextInput  secureTextEntry={secureTextEntry} placeholder = 'Password' style={{width: '90%'}}> 
+                  <TextInput  secureTextEntry={secureTextEntry} placeholder = 'Password' style={{marginLeft:10, width: '85%'}}
+                    value={userData2.password}
+                    onChangeText={(text) => setUserData2({ ...userData2, password: text })}
+                  > 
                   </TextInput>
                   <Entypo name={icon} size={24} color="black" style={{ width: 100 }} onPress={handleShowHidePassword}
 
@@ -126,7 +151,10 @@
                     paddingTop: 5,
                   }}
                 >
-                  <TextInput style={{ marginLeft: 10, width: 300 }} secureTextEntry={retypeSecureTextEntry} placeholder = 'Re-type Password'> 
+                  <TextInput style={{ marginLeft: 10, width: 300 }} secureTextEntry={retypeSecureTextEntry} placeholder = 'Re-type Password'
+                    value={userData2.confirmpassword}
+                    onChangeText={(text) => setUserData2({ ...userData2, confirmpassword: text })}
+                  > 
                   </TextInput>
                 
                 </View>
@@ -144,7 +172,7 @@
                   justifyContent: "center",
                 }}  
               >
-                <Button title = 'SIGN UP' onPress={handleSignUp}/>
+                <Text onPress={handleSubmit} style={{color: '#fff'}}>SIGNUP</Text>
               </View>
               <View
                 style={{
@@ -157,7 +185,7 @@
               </View>
               <Text style={{ marginTop: 30, fontSize: 15 }}>
                 Do you have an existing account?
-                <Text style={{ color: "#38B6FF" }} onPress={ () => navigation.navigate('Login')}> Click Here.</Text>
+                <Text style={{ color: "#38B6FF" }} onPress={ () => navigation.navigate('Login', { userData2 })}> Click Here.</Text>
               </Text>
             </View>
           </ImageBackground>

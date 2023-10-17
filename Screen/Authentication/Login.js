@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   ImageBackground,
   View,
@@ -8,12 +8,26 @@ import {
   TextInput,
   Button,
 } from "react-native";
-import ProfileRoutes from "../../routes/profileRoutes";
 
 
 const { width, height } = Dimensions.get("window");
 
-export default function Login({ navigation }) {
+export default function Login({ navigation, route }) {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const userData2 = route.params.userData2;
+  const userData = route.params.userData;
+  const handleLoginSubmit = ()=>{
+    if (userData2.username === username && userData2.password === password) {
+      // Navigate to the profile page
+      navigation.navigate('Profile', { userData, userData2});
+    } else {
+      // Display an error message
+      alert('Invalid username or password');
+    }
+  }
+
   return (
     <View>
       <ImageBackground
@@ -44,7 +58,7 @@ export default function Login({ navigation }) {
                 source={require("../../assets/2.png")}
                 style={{ width: 25, height: 25 }}
               />
-              <TextInput style={{ marginLeft: 10 }} placeholder = 'Input your username'>
+              <TextInput style={{ marginLeft: 10 }} placeholder = 'Input your username' onChangeText={(text) => setUsername(text)}>
               </TextInput>
             </View>
           </View>
@@ -66,7 +80,7 @@ export default function Login({ navigation }) {
                 source={require("../../assets/3.png")}
                 style={{ width: 25, height: 25 }}
               />
-              <TextInput style={{ marginLeft: 10 }} secureTextEntry={true} placeholder = 'Input your username'>
+              <TextInput style={{ marginLeft: 10 }} secureTextEntry={true} placeholder = 'Input your password' onChangeText={(text) => setPassword(text)}>
                 
               </TextInput>
             </View>
@@ -83,7 +97,7 @@ export default function Login({ navigation }) {
               justifyContent: "center",
             }}
           >
-            <Button title = 'login' onPress={ () => navigation.navigate('Profile')}/>
+            <Text onPress={handleLoginSubmit} style={{color:'#fff'}}>LOGIN</Text>
           </View>
           <View
             style={{
@@ -120,4 +134,4 @@ export default function Login({ navigation }) {
       </ImageBackground>
     </View>
   );
-}
+};

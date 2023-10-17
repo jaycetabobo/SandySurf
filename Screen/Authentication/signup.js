@@ -1,4 +1,4 @@
-    import React from "react";
+    import React, { useState } from "react";
     import {
       ImageBackground,
       View,
@@ -7,13 +7,34 @@
       Image,
       TextInput,
       Button,
+      DatePicker
     } from "react-native";
-    import ProfileRoutes from "../../routes/profileRoutes";
+
+
     
     
     const { width, height } = Dimensions.get("window");
     
-    export default function Signup({ navigation }) {
+    export default function Signup({ navigation, }) {
+
+    
+    
+      const [userData, setUserData] = useState([{
+        fullname: "",
+        birthdate: "",
+        location: "",
+        phoneNumber: ""
+      },
+    ]);
+    
+      const handleSubmit = () => {
+        // Set the user data state variable
+        setUserData(userData);
+    
+        // Navigate to the `profile.js` screen
+        navigation.navigate("Signup2", { userData });
+      };
+
       return (
         <View>
           <ImageBackground
@@ -39,9 +60,13 @@
                     paddingTop: 5,
                   }}
                 >
-                  
-                  <TextInput style={{ marginLeft: 10, width: 300 }} placeholder = 'Name'>
-                  </TextInput>
+                  <TextInput
+                    style={{ marginLeft: 10, width: 300 }}
+                    placeholder = 'e.g surname middlename lastname'
+                    value={userData.fullname}
+                    onChangeText={(text) => setUserData({ ...userData, fullname: text })}
+                  />
+                 
                 </View>
                 <Text>Birthdate:</Text>
                 <View
@@ -55,8 +80,12 @@
                     paddingTop: 5,
                   }}
                 >
-                  <TextInput style={{ marginLeft: 10, width: 300 }} placeholder = 'MM/DD/YYYY'>
-                  </TextInput>
+                  <TextInput
+                    style={{ marginLeft: 10, width: 300 }}
+                    placeholder = 'MM/DD/YY'
+                    value={userData.birthdate}
+                    onChangeText={(text) => setUserData({ ...userData, birthdate: text })}
+                  />
                 </View>
                 <Text>Location:</Text>
                 <View
@@ -70,9 +99,13 @@
                     paddingTop: 5,
                   }}
                 >
-                 
-                  <TextInput style={{ marginLeft: 10, width: 300 }} placeholder = 'Location'>
-                  </TextInput>
+                  <TextInput
+                    style={{ marginLeft: 10, width: 300 }}
+                    placeholder = 'e.g CDO'
+                    value={userData.location}
+                    onChangeText={(text) => setUserData({ ...userData, location: text })}
+                  />
+                  
                 </View>
                 
               </View>
@@ -91,11 +124,17 @@
                     paddingTop: 5,
                   }}
                 >
-                  <TextInput style={{ marginLeft: 10, width: 300 }} placeholder = 'Phone Number'> 
-                  </TextInput>
+                  <TextInput
+                    style={{ marginLeft: 10, width: 300 }}
+                    placeholder = 'e.g 09427537856'
+                    value={userData.phoneNumber}
+                    onChangeText={(text) => setUserData({ ...userData, phoneNumber: text })}
+                  />
+                  
                 </View>
               </View>
               <View
+                
                 style={{
                   backgroundColor: "black",
                   width: 150,
@@ -107,8 +146,9 @@
                   alignItems: "center",
                   justifyContent: "center",
                 }}
+                
               >
-                <Button title = 'CONTINUE' onPress={ () => navigation.navigate('Signup2')}/>
+                <Text style={{color: '#fff', paddingHorizontal: 10}} onPress={handleSubmit}>CONTINUE</Text>
               </View>
               <View
                 style={{
@@ -119,10 +159,10 @@
               >
                
               </View>
-              <Text style={{ marginTop: 30, fontSize: 15 }}>
+              {/* <Text style={{ marginTop: 30, fontSize: 15 }}>
                 Do you have an existing account?
                 <Text style={{ color: "#38B6FF" }} onPress={ () => navigation.navigate('Login')}> Click Here.</Text>
-              </Text>
+              </Text> */}
             </View>
           </ImageBackground>
         </View>

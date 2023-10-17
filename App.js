@@ -22,6 +22,7 @@ export default function App() {
   const [loaded] = useFonts({
     boorsok: require('./assets/fonts/boorsok.ttf'),
     glacialindi: require("./assets/fonts/GlacialIndifference-Regular.otf"),
+    glacialindibold: require("./assets/fonts/GlacialIndifference-Bold.otf"),
   });
 
   if (!loaded) {
